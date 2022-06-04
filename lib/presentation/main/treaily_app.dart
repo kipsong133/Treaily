@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:treaily/base/constants/route+constants.dart';
+import 'package:treaily/presentation/treasure_list/treasure_list_view.dart';
+import 'package:treaily/presentation/treasure_list/treasure_list_viewmodel.dart';
 import 'package:treaily/presentation/treasure_map/treasure_map_view.dart';
 import 'package:treaily/presentation/treasure_map/treasure_map_viewmodel.dart';
 
@@ -20,6 +22,7 @@ class _TreailyAppState extends State<TreailyApp> {
     return MultiProvider(providers: [
       ChangeNotifierProvider(create: (context) => SplashViewModel()),
       ChangeNotifierProvider(create: (context) => TreasureMapViewModel()),
+      ChangeNotifierProvider(create: (context) => TreasureListViewModel()),
     ],
       child: _routingView(),
     );
@@ -32,6 +35,7 @@ class _TreailyAppState extends State<TreailyApp> {
       routes: {
         TreailyRouter.splash: (context) => SplashView(),
         TreailyRouter.treaureMap: (context) => TreasureMapView(),
+        TreailyRouter.treaureList: (context) => TreasureListView(),
       },
     );
   }
