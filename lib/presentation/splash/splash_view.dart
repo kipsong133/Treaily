@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:treaily/base/constants/route+constants.dart';
+
+import '../authentication/auth_service.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({Key? key}) : super(key: key);
@@ -13,10 +16,11 @@ class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     super.initState();
-
     Future.delayed(Duration(seconds: 1), () {
-      // Navigator.pushNamedAndRemoveUntil(context, TreailyRouter.treaureMap, (route) => false);
-      Navigator.pushNamedAndRemoveUntil(context, TreailyRouter.login, (route) => false);
+      final authService = context.read<AuthService>();
+      final user = authService.currentUser();
+      final routingView = (user == null) ? TreailyRouter.login : TreailyRouter.treaureMap;
+      Navigator.of(context).pushReplacementNamed(routingView);
     });
   }
 

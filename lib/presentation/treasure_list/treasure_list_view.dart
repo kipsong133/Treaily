@@ -1,5 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:treaily/service/treasure_service.dart';
 
+import '../authentication/auth_service.dart';
 import '../common/BorderTextFieldDecoration.dart';
 import '../common/ContainerShadowDecoration.dart';
 import '../treasure_map/treasure_map_view.dart';
@@ -24,21 +28,37 @@ class _TreasureListViewState extends State<TreasureListView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            // 보물 검색 TextField
-            _treasureSearchView(),
+    return Consumer<TreasureService>(
+      builder: (context, treasureService, child) {
+        final authService = context.read<AuthService>();
+        User user = authService.currentUser()!; // can't null
 
-            // 필터, 정렬
-            _filterViews(),
+        return Scaffold(
+          body: SafeArea(
+            child: Column(
+              children: [
+                ElevatedButton(onPressed: () {
+                  final dummyData = Treasure(answer: '별',
+                      choices: ['1', '2'],
+                      reward: '리워드',
+                      uid: user.uid,
+                      userName: '우노');
+                  treasureService.create(dummyData, user.uid);
 
-            // 보물 리스트
-            _treasureListView(),
-          ],
-        ),
-      ),
+                }, child: Text('Create Test'),),
+
+                _treasureSearchView(),
+
+                // 필터, 정렬
+                _filterViews(),
+
+                // 보물 리스트
+                _treasureListView(),
+              ],
+            ),
+          ),
+        );
+      }
     );
   }
 

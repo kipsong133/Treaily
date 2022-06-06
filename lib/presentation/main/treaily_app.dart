@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:treaily/base/constants/route+constants.dart';
+import 'package:treaily/presentation/authentication/auth_service.dart';
 import 'package:treaily/presentation/authentication/login/login_view.dart';
 import 'package:treaily/presentation/authentication/login/login_viewmodel.dart';
+import 'package:treaily/presentation/authentication/sign_up/sign_up_view.dart';
+import 'package:treaily/presentation/authentication/sign_up/sign_up_viewmodel.dart';
 import 'package:treaily/presentation/treasure_list/treasure_list_view.dart';
 import 'package:treaily/presentation/treasure_list/treasure_list_viewmodel.dart';
 import 'package:treaily/presentation/treasure_map/treasure_map_view.dart';
 import 'package:treaily/presentation/treasure_map/treasure_map_viewmodel.dart';
+import 'package:treaily/service/treasure_service.dart';
 
 import '../splash/splash_view.dart';
 import '../splash/splash_viewmodel.dart';
@@ -26,6 +30,9 @@ class _TreailyAppState extends State<TreailyApp> {
       ChangeNotifierProvider(create: (context) => TreasureMapViewModel()),
       ChangeNotifierProvider(create: (context) => TreasureListViewModel()),
       ChangeNotifierProvider(create: (context) => LoginViewModel()),
+      ChangeNotifierProvider(create: (context) => SignUpViewModel()),
+      ChangeNotifierProvider(create: (context) => AuthService()),
+      ChangeNotifierProvider(create: (context) => TreasureService()),
     ],
       child: _routingView(),
     );
@@ -40,6 +47,7 @@ class _TreailyAppState extends State<TreailyApp> {
         TreailyRouter.treaureMap: (context) => TreasureMapView(),
         TreailyRouter.treaureList: (context) => TreasureListView(),
         TreailyRouter.login: (context) => LoginView(),
+        TreailyRouter.signUp: (context) => SignUpView(),
       },
     );
   }
