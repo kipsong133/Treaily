@@ -1,53 +1,65 @@
-// import 'dart:async';
-//
-// import 'package:flutter/material.dart';
-// import 'package:google_maps_flutter/google_maps_flutter.dart';
-//
-// class TreasureMapView extends StatefulWidget {
-//   const TreasureMapView({Key? key}) : super(key: key);
-//
-//   @override
-//   State<TreasureMapView> createState() => _TreasureMapViewState();
-// }
-//
-// class _TreasureMapViewState extends State<TreasureMapView> {
-//   Completer<GoogleMapController> _controller = Completer();
-//
-//   // 초기 카메라 위치
-//   static final CameraPosition _kGooglePlex = CameraPosition(
-//     target: LatLng(37.42796133580664, -122.085749655962),
-//     zoom: 14.4746,
-//   );
-//
-//   // 호수 위치
-//   static final CameraPosition _kLake = CameraPosition(
-//       bearing: 192.8334901395799,
-//       target: LatLng(37.43296265331129, -122.08832357078792),
-//       tilt: 59.440717697143555,
-//       zoom: 19.151926040649414);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return new Scaffold(
-//       body: GoogleMap(
-//         mapType: MapType.hybrid,
-//         initialCameraPosition: _kGooglePlex, // 초기 카메라 위치
-//         onMapCreated: (GoogleMapController controller) {
-//           _controller.complete(controller);
-//         },
-//       ),
-//
-//       // floatingActionButton을 누르게 되면 _goToTheLake 실행된다.
-//       floatingActionButton: FloatingActionButton.extended(
-//         onPressed: _goToTheLake,
-//         label: Text('To the lake!'),
-//         icon: Icon(Icons.directions_boat),
-//       ),
-//     );
-//   }
-//
-//   Future<void> _goToTheLake() async {
-//     final GoogleMapController controller = await _controller.future;
-//     controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
-//   }
-// }
+import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+class MapSample extends StatefulWidget {
+  @override
+  State<MapSample> createState() => MapSampleState();
+}
+
+class MapSampleState extends State<MapSample> {
+  @override
+  void initState() {
+    super.initState();
+    _markers.add(Marker(
+        markerId: MarkerId('1'),
+        draggable: true,
+        onTap: () => print('서울숲 별빛공원'),
+        position: LatLng(37.54541905, 127.03828863)));
+
+    _markers.add(Marker(
+        markerId: MarkerId('2'),
+        draggable: true,
+        onTap: () => print('서울숲 입구'),
+        position: LatLng(37.54441171, 127.03750708)));
+  }
+
+  Completer<GoogleMapController> _controller = Completer();
+
+  List<Marker> _markers = [];
+
+  static final CameraPosition _kGooglePlex = CameraPosition(
+    target: LatLng(37.54541905, 127.03828863),
+    zoom: 14.4746,
+  );
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: GoogleMap(
+        mapType: MapType.normal,
+        markers: Set.from(_markers),
+        initialCameraPosition: _kGooglePlex,
+        myLocationButtonEnabled: false,
+        // onCameraMove: ((_position) => _updatePosition(_position)),
+      ),
+    );
+  }
+
+  void _updatePosition(CameraPosition _position) {
+    var m = _markers.firstWhere(
+          (element) => element.markerId == MarkerId('1'),
+      orElse: null,
+    );
+    _markers.remove(m);
+    _markers.add(
+        Marker(
+          markerId: MarkerId('1'),
+          position: LatLng(
+              _position.target.latitude, _position.target.longitude),
+          draggable: true,
+        ),
+    );
+    setState(() {});
+  }
+}

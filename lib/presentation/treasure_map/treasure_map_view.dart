@@ -4,6 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:treaily/base/constants/route+constants.dart';
 import '../common/BorderTextFieldDecoration.dart';
 import '../common/ContainerShadowDecoration.dart';
+import 'google_map_example.dart';
 
 class TreasureMapView extends StatefulWidget {
   const TreasureMapView({Key? key}) : super(key: key);
@@ -23,10 +24,7 @@ class _TreasureMapViewState extends State<TreasureMapView> {
           // 지도가 위치할 컨테이너
           Container(
             color: Colors.white,
-            child: SizedBox(
-              width: double.infinity,
-              height: double.infinity,
-            ),
+            child: MapSample(),
           ),
 
           SafeArea(
@@ -47,10 +45,10 @@ class _TreasureMapViewState extends State<TreasureMapView> {
                     padding: const EdgeInsets.only(bottom: 30),
                     child: AddButton(),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 30, right: 22),
-                    child: NavigatorIconButton(),
-                  )
+                  // Padding(
+                  //   padding: const EdgeInsets.only(bottom: 30, right: 22),
+                  //   child: NavigatorIconButton(),
+                  // )
                 ],
               ),
             ],
@@ -63,16 +61,21 @@ class _TreasureMapViewState extends State<TreasureMapView> {
   Padding _textFieldStyleButton(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 22, left: 22, right: 22),
-      child: Container(
-        decoration: ContainerShadowDecoration(),
-        height: 48,
-        child: Row(
-          children: [
-            Icon(Icons.menu),
-            Expanded(
-              child: Text('보물 검색'),
-            ),
-          ],
+      child: GestureDetector(
+        onTap: () {
+          Navigator.of(context).pushNamed(TreailyRouter.treaureList);
+        },
+        child: Container(
+          decoration: ContainerShadowDecoration(),
+          height: 48,
+          child: Row(
+            children: [
+              Icon(Icons.menu),
+              Expanded(
+                child: Text('보물 검색'),
+              ),
+            ],
+          ),
         ),
       ),
     );

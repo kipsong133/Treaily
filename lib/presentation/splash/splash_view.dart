@@ -15,7 +15,8 @@ class _SplashViewState extends State<SplashView> {
     super.initState();
 
     Future.delayed(Duration(seconds: 1), () {
-      Navigator.pushNamedAndRemoveUntil(context, TreailyRouter.treaureMap, (route) => false);
+      // Navigator.pushNamedAndRemoveUntil(context, TreailyRouter.treaureMap, (route) => false);
+      Navigator.pushNamedAndRemoveUntil(context, TreailyRouter.login, (route) => false);
     });
   }
 

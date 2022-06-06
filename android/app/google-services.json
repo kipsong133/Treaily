@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "776194661186",
+    "project_id": "treaily",
+    "storage_bucket": "treaily.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:776194661186:android:75b447dde51f76e4edc6db",
+        "android_client_info": {
+          "package_name": "com.umt.treaily"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "776194661186-ttu8icu5firmoo92u7o2n7daf0aebo1h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFnko9YcC04C_WS-1sH7N0Cn1OGE27nkI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "776194661186-ttu8icu5firmoo92u7o2n7daf0aebo1h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
